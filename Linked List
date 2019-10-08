@@ -1,0 +1,221 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *start;
+
+
+
+void insertbeg();
+void insertend();
+void insertbet(int);
+void deletebeg();
+void deleteend();
+void deletebet(int);
+void search(int);
+void display();
+   
+int main()
+{
+    int n,v,ch,val,s;
+    start=NULL;
+    struct node *new_node,*ptr;
+    do
+    {
+    printf("Press 1 to insert at beginning\n");
+    printf("Press 2 to insert at end \n");
+    printf("Press 3 to insert at between \n");
+    printf("Press 4 to delete at beginning \n");
+    printf("Press 5 to delete at end \n");
+    printf("Press 6 to delete at between \n");
+    printf("Press 7 to search an element \n");
+    printf("Press 8 to display \n");
+    scanf("%d",&n);
+    
+    if(n==1)
+    {
+        insertbeg();
+    }
+    
+    if(n==2)
+    {
+        insertend();
+    }
+    
+    if(n==3)
+    {
+        printf("Enter value after which data to be inserted\n");
+        scanf("%d",&val);
+        insertbet(val);
+    }
+    
+    if(n==4)
+    {
+        deletebeg();
+    }
+    
+    if(n==5)
+    {
+        deleteend();
+    }
+    
+    if(n==6)
+    {
+        printf("Enter value to be deleted\n");
+        scanf("%d",&v);
+        deletebet(v);
+    }
+    
+    if(n==7)
+    {
+        printf("Enter an element to be searched \n");
+        scanf("%d",&s);
+        search(s);
+    }
+    
+    if(n==8)
+    {
+        display();
+    }
+    
+    printf("Press 1 to continue \n");
+    scanf("%d",&ch);
+    }
+    while(ch==1);
+    
+
+    return 0;
+}
+
+void insertbeg()
+{
+    struct node *new_node;
+    new_node=(struct node *)malloc(sizeof(struct node));
+    printf("Enter data\n");
+    scanf("%d",&new_node->data);
+    new_node->next=start;
+    start=new_node;
+    printf("Data Entered\n");
+    //display();
+}
+
+void insertend()
+{
+    struct node *new_node,*ptr;
+    new_node=(struct node *)malloc(sizeof(struct node));
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    printf("Enter Data\n");
+    scanf("%d",&new_node->data);
+    ptr->next=new_node;
+    new_node->next=NULL;
+    //printf("%d",ptr->data);
+    printf("Data Entered \n");
+}
+
+void insertbet(int a)
+{
+    struct node *new_node,*ptr;
+    ptr=start;
+    new_node=(struct node *)malloc(sizeof(struct node));
+    printf("Enter data\n");
+    scanf("%d",new_node->data);
+    while(ptr->data!=a)
+    {
+        ptr=ptr->next;
+    }
+    new_node->next=ptr->next;
+    ptr->next=new_node;
+    printf("Data Entered\n");
+}
+
+void deletebeg()
+{
+    struct node *ptr;
+    ptr=start;
+    start=ptr->next;
+    printf("Deleted node is %d\n",ptr->data);
+    free(ptr);
+   
+}
+
+void deleteend()
+{
+    struct node *ptr,*preptr;
+    ptr=start;
+    preptr=ptr;
+    while(ptr->next!=NULL)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    printf("Deleted node is %d\n",ptr->data);
+    preptr->next=NULL;
+    free(ptr);
+}
+
+
+void search(int b)
+{
+    int flag=0;
+    struct node *ptr;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        if(ptr->data==b)
+        {
+            flag=1;
+            break;
+        }
+        ptr=ptr->next;
+    }
+    if(flag==1)
+    {
+        printf("Element found\n");
+    }
+    else
+    {
+        printf("Element not found\n");
+    }
+}
+
+void deletebet(int c)
+{
+    struct node *ptr,*preptr;
+    ptr=start;
+    preptr=ptr;
+    while(ptr->data!=c)
+    {   
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    preptr->next=ptr->next;
+    printf("Deleted info is %d\n",ptr->data);
+    free(ptr);
+}
+
+
+void display()
+{
+    struct node *ptr;
+    ptr=start;
+    for(ptr=start;ptr->next!=NULL;ptr=ptr->next)
+    {
+        printf("%d\n",ptr->data);
+    }
+    while(ptr->next!=NULL)
+    {
+        printf("%d\n",ptr->data);
+        ptr=ptr->next;
+    }
+
+}
+
