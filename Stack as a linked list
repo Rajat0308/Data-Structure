@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *top;
+
+void push();
+void pop();
+void display();
+
+int main()
+{
+    int ch,ans;
+    top=NULL;
+    
+    do
+    {
+        printf("Press 1 to push\n");
+        printf("Press 2 to pop\n");
+        printf("Press 3 to display\n");
+        scanf("%d",&ch);
+        
+        switch(ch)
+        {
+            case 1:
+            push();
+            break;
+        
+            case 2:
+            pop();
+            break;
+            
+            case 3:
+            display();
+            break;
+            
+            default:
+            printf("Invalid Input\n");
+            break;
+        }
+        printf("Press 1 to continue\n");
+        scanf("%d",&ans);
+    }
+    while(ans==1);
+    return 0;
+}
+
+void push()
+{
+    struct node *new_node;
+    new_node=(struct node *)malloc(sizeof(struct node*));
+    printf("Enter data\n");
+    scanf("%d",&new_node->data);
+    printf("Data entered\n");
+    new_node->next=end;
+}
+
+void pop()
+{
+    if(end==NULL)
+    {
+        printf("Stack empty\n");
+    }
+    else
+    {
+    struct node *ptr,*preptr;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        preptr=ptr;
+        ptr=ptr->next;
+    }
+    printf("Deleted info is %d\n",ptr->data);
+    free(ptr);
+    preptr->next=NULL;
+    }
+}
+
+void display()
+{
+    struct node *ptr;
+    ptr=start;
+    while(ptr->next!=NULL)
+    {
+        printf("%d\n",ptr->data);
+        ptr=ptr->next;
+    }
+}
